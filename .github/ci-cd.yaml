@@ -41,11 +41,12 @@ jobs:
       run: |
         mkdir -p ~/.kube
         echo "${{ secrets.KUBECONFIG_DATA }}" > ~/.kube/config
-        # Note: If executing deployments locally instead, you can skip the cluster deployment step inside GitHub Actions and run it manually using the generated tag.
+       
 
     - name: Update Manifest and Deploy
       run: |
         TAG=$(git rev-parse --short HEAD)
         sed -i "s/IMAGE_TAG/$TAG/g" k8s/deployment.yaml
         cat k8s/deployment.yaml # Verification
-        # kubectl apply -f k8s/deployment.yaml (Uncomment if using Remote K8s Secret cluster)
+
+
