@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: temp-converter
+  labels:
+    app: temp-converter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: temp-converter
+  template:
+    metadata:
+      labels:
+        app: temp-converter
+  spec:
+    containers:
+    - name: temp-converter
+      image: 24mis0099/temp-converter:IMAGE_TAG
+      imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: temp-converter-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: temp-converter
